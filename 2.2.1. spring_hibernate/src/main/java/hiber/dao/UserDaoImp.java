@@ -12,8 +12,12 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public UserDaoImp(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void add(User user) {
@@ -21,7 +25,7 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public void userWithCar(String modelCar, int seriesCar) {
+    public void getUserWithCar(String modelCar, int seriesCar) {
         String hql = "FROM User usrs LEFT OUTER JOIN FETCH usrs.userCar car WHERE car.model =: modelCar AND car.series =: seriesCar";
         User user = sessionFactory.getCurrentSession().createQuery(hql, User.class).setParameter("modelCar", modelCar)
                 .setParameter("seriesCar", seriesCar).uniqueResult();
@@ -31,13 +35,11 @@ public class UserDaoImp implements UserDao {
         } else {
             System.out.println("\n Пользователь не найден...\n");
         }
-
-
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<User> listUsers() {
+    public List<User> getListUsers() {
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User ");
         return query.getResultList();
     }

@@ -22,10 +22,10 @@ public class MainApp {
         userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
         userService.add(new User("User5", "lastname5", "user5@mail.ru", new Car("LADA", 12345)));
         userService.add(new User("User6", "lastname6", "user6@mail.ru", new Car("BMW", 3213)));
-        userService.userWithCar("LADA", 12345);
+        userService.getUserWithCar("LADA", 12345);
 
 
-        List<User> users = userService.listUsers();
+        List<User> users = userService.getListUsers();
         for (User user : users) {
             System.out.println("Id = " + user.getId());
             System.out.println("First Name = " + user.getFirstName());
